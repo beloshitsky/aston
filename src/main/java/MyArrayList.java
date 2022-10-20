@@ -72,4 +72,60 @@ public class MyArrayList<T> {
             elements[i] = oldElements[i];
         }
     }
+
+    public static <T extends Comparable<T>> void sort(MyArrayList<T> list) {
+        MyArrayList<T> left = new MyArrayList<>();
+        MyArrayList<T> right = new MyArrayList<>();
+
+        if (list.size() == 1) return;
+
+        int middle = list.size() / 2;
+
+        for (int i = 0; i < middle; i++) {
+            left.add(list.get(i));
+        }
+
+        for (int i = middle; i < list.size(); i++) {
+            right.add(list.get(i));
+        }
+
+        sort(left);
+        sort(right);
+
+        merge(left, right, list);
+    }
+
+    /**
+     * метод сравнивает элементы из двух подсписков и добавляет их в оригинальный список в отсортированном порядке
+     * @param left - левая часть списка
+     * @param right - правая часть списка
+     * @param list - список для сортировки
+     */
+    private static <T extends Comparable<T>> void merge(MyArrayList<T> left, MyArrayList<T> right, MyArrayList<T> list) {
+
+        int leftIndex = 0, rightIndex = 0, index = 0;
+
+        while ((leftIndex < left.size()) && (rightIndex < right.size())) {
+            if (left.get(leftIndex).compareTo(right.get(rightIndex)) < 0) {
+                list.set(index, left.get(leftIndex));
+                leftIndex++;
+            } else {
+                list.set(index, right.get(rightIndex));
+                rightIndex++;
+            }
+            index++;
+        }
+
+        while (leftIndex < left.size()) {
+            list.set(index, left.get(leftIndex));
+            index++;
+            leftIndex++;
+        }
+
+        while (rightIndex < right.size()) {
+            list.set(index, right.get(rightIndex));
+            index++;
+            rightIndex++;
+        }
+    }
 }
