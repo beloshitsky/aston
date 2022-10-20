@@ -90,4 +90,33 @@ class MyArrayListTest {
 
         assertTrue(testNumbersList.isEmpty());
     }
+
+    @Test
+    void testNumbersSort() {
+        for (int i = 10; i >= 0; i--) {
+            testNumbersList.add(i);
+        }
+
+        assertEquals(11, testNumbersList.size());
+
+        MyArrayList.sort(testNumbersList);
+
+        for (int i = 0; i <= 10; i++) {
+            assertEquals(i, testNumbersList.get(i));
+        }
+    }
+
+    @Test
+    void testStringSort() {
+        testStringList.add("e");
+        testStringList.add("d");
+        testStringList.add("c");
+        testStringList.add("a");
+        testStringList.add("b");
+
+        MyArrayList.sort(testStringList);
+
+        assertEquals("a", testStringList.get(0));
+        assertEquals("e", testStringList.get(4));
+    }
 }
