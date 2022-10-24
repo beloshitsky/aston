@@ -1,12 +1,17 @@
 public class MyArrayList<T> {
-    private static final int DEFAULT_SIZE = 10;
+    private static final int DEFAULT_CAPACITY = 10;
 
     private T[] elements;
 
     private int size;
 
     public MyArrayList() {
-        this.elements = (T[]) new Object[DEFAULT_SIZE];
+        this.elements = (T[]) new Object[DEFAULT_CAPACITY];
+        this.size = 0;
+    }
+
+    public MyArrayList(int capacity) {
+        this.elements = (T[]) new Object[capacity];
         this.size = 0;
     }
 
@@ -42,6 +47,8 @@ public class MyArrayList<T> {
     }
 
     public void remove(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+
         for (int i = index; i < (size - 1); i++) {
             elements[i] = elements[i + 1];
         }
