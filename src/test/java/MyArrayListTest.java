@@ -11,6 +11,22 @@ class MyArrayListTest {
 
     MyArrayList<String> testStringList = new MyArrayList<>();
 
+    @Test
+    void testCreateListWithCapacity() {
+        MyArrayList<Integer> list = new MyArrayList<>(20);
+
+        for (int i = 0; i < 5; i++) {
+            list.add(i);
+        }
+
+        assertNotNull(list);
+
+        assertEquals(0, list.get(0));
+
+        assertEquals(5, list.size());
+
+    }
+
     @ParameterizedTest(name = "add() work on {0} and {1}")
     @CsvSource(value = {"hello, 42", "world, -42"})
     void add(String string, Integer number) {
@@ -77,6 +93,8 @@ class MyArrayListTest {
 
         assertEquals(1, testNumbersList.size());
         assertEquals(0, testNumbersList.get(0));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> testNumbersList.remove(10));
     }
 
     @Test
